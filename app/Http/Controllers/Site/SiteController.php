@@ -73,10 +73,10 @@ class SiteController extends Controller
             // 4) Redirect sesuai role
             $roleName = $activeRole?->nama_role;
             return match ($roleName) {
-                'Administrator' => redirect()->route('admin.home'),
-                'Resepsionis'   => redirect()->route('resepsionis.home'),
-                'Perawat'       => redirect()->route('perawat.home'),
-                'Dokter'        => redirect()->route('dokter.home'),
+                'admin' => redirect()->route('site.admin'),
+                'resepsionis'   => redirect()->route('resepsionis.home'),
+                'pemilik'       => redirect()->route('perawat.home'),
+                'dokter'        => redirect()->route('dokter.home'),
                 default         => $this->logoutWithMessage('Role tidak ditemukan / tidak aktif.'),
             };
         }
@@ -102,5 +102,19 @@ class SiteController extends Controller
         return redirect()->route('site.login')->with('error', $msg);
     }
     
+    public function cekKoneksi() // membuat method cekKoneksi
+    {
+        try {
+            \DB::connection()->getPdo();
+            return "Koneksi ke database berhasil.";
+        } catch (\Exception $e) {
+            return "Koneksi ke database gagal: " . $e->getMessage();
+        }
+    }
+
+    public function admin()
+    {
+        return view('site.admin');
+    }
 }
 

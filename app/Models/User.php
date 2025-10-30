@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable; // <- penting untuk Auth::attempt
 use Illuminate\Notifications\Notifiable;
+use App\Models\Role;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -27,4 +29,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'role_user', 'iduser', 'idrole')
                     ->withPivot('status');
     }
+
 }
+

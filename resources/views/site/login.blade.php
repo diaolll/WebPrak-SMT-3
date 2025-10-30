@@ -20,7 +20,8 @@
             text-align: center;
         }
         
-        .login-container {
+        /* Ini adalah class yang akan digunakan */
+        .login-container { 
             background-color: #fff;
             padding: 40px;
             border-radius: 12px;
@@ -47,15 +48,15 @@
 
         input[type="email"],
         input[type="password"] {
-            /* Hapus width: 100%; */
-            width: auto; /* atau hapus saja propertinya */
-            display: block; /* PENTING: Membuatnya mengambil baris penuh */
-            box-sizing: border-box; /* Sudah ada di global * */
+            /* width: auto; dihilangkan untuk default block element */
+            display: block; 
+            box-sizing: border-box; 
+            width: 100%; /* Ditambahkan untuk konsistensi desain */
             padding: 10px;
             border: 1px solid #c9d2d9;
             border-radius: 8px;
             font-size: 16px;
-            margin-top: 5px; /* Tambahkan sedikit jarak dari label */
+            margin-top: 5px; 
         }
         
         input[type="checkbox"] {
@@ -73,7 +74,7 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
             font-weight: 600;
             width: 100%; 
-            display: block; /* Memastikan lebar 100% dihormati */
+            display: block; 
         }
         
         button:hover {
@@ -96,6 +97,7 @@
             margin-bottom: 15px;
             border-radius: 5px;
             font-weight: 600;
+            text-align: left; /* Ditambahkan agar pesan lebih rapi di dalam card */
         }
         
         .error {
@@ -116,25 +118,34 @@
             color: #6a9ac4;
         }
     </style>
+    
 </head>
 <body>
   <div class="login-container">
-    <h2>Login Area Admin</h2>
+    <h2>Login Admin - RSHP Unair</h2>
 
-    <form method="POST" action="/admin/login">
-      
+    @if (session('error'))
+      <div class="msg error">{{ session('error') }}</div>
+    @endif
+    @if (session('success'))
+      <div class="msg success">{{ session('success') }}</div>
+    @endif
+    @error('email')
+      <div class="msg error">{{ $message }}</div>
+    @enderror
+
+    <form method="post" action="{{ route('site.login.post') }}">
+      @csrf
       <label for="email">Email</label>
-      <input id="email" type="email" name="email" value="" required placeholder="Masukkan Email Anda">
+      <input id="email" type="email" name="email" value="{{ old('email') }}" required>
 
       <label for="password">Password</label>
-      <input id="password" type="password" name="password" required placeholder="Masukkan Password Anda">
+      <input id="password" type="password" name="password" required>
 
       <button type="submit">Login</button>
     </form>
 
-    <div class="hint">Gunakan email & password yang sudah terdaftar untuk akses admin.</div>
-    
-    <p style="margin-top: 20px;"><a href="/">Kembali ke Beranda Situs</a></p>
+    <div class="hint">Gunakan email & password yang sudah terdaftar.</div>
   </div>
 </body>
 </html>
