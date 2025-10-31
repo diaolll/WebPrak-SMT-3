@@ -15,9 +15,18 @@
             <td>{{ $index + 1}}</td> 
             <td>{{ $user->nama }}</td> 
             <td>{{ $user->email }}</td> 
-            
-            <td>{{ $user->role ? $user->role->nama_role : 'No Role' }}</td>
-        </tr>
+
+        <td>
+          @php
+            $labels = $user->roles
+              ->sortByDesc(fn($r) => (int) $r->pivot->status)   // Aktif duluan
+              ->map(fn($r) => $r->nama_role.' ('.($r->pivot->status ? 'Aktif' : 'Nonaktif').')')
+              ->implode(', ');
+          @endphp
+
+          {{ $labels !== '' ? $labels : '-' }}
+        </td>
+                    </tr>
         @endforeach
     </tbody>
 </table>
