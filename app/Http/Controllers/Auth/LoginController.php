@@ -31,7 +31,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin';
 
     /**
      * Create a new controller instance.
@@ -93,14 +93,21 @@ class LoginController extends Controller
     ]);
 
     $roles = $user->roles[0]->idrole ?? null;
+    \Log::info('User role: ' . $roles);
 
     switch ($roles) {
         case 1:
-            return redirect()->intended('/home')->with('success', 'Login berhasil!');
+            return redirect()->intended('/admin/dashboard')->with('success', 'Login berhasil!');
         case 2:
-            return redirect()->intended('/resepsionis')->with('success', 'Login berhasil!');
+            return redirect()->intended('/dokter')->with('success', 'Login berhasil!');
+        case 3:
+            return redirect()->intended('/perawat/dashboard')->with('success', 'Login berhasil!');
+        case 5:
+            return redirect()->intended('/pemilik/dashboard')->with('success', 'Login berhasil!');
+        case 8:
+            return redirect()->intended('/resepsionis/dashboard')->with('success', 'Login berhasil!');
         default:
-            return redirect()->intended('/home')->with('success', 'Login berhasil!');
+            return redirect()->intended('/admin')->with('success', 'Login berhasil!');
     }
 
     // Redirect ke /home (Sesuai gambar, bukan switch case)
@@ -112,7 +119,7 @@ class LoginController extends Controller
     $request->session()->invalidate();
     $request->session()->regenerateToken();
 
-    return redirect('/')->with('success', 'Logout berhasil!');
+    return redirect()->route('login')->with('success', 'Logout berhasil!');
 }
 
 

@@ -63,8 +63,8 @@
                                         <td>{{ $pet->rasHewan->nama_ras_hewan ?? 'N/A' }}</td>
                                         <td>{{ \Carbon\Carbon::parse($pet->tanggal_lahir)->format('d/m/Y') }}</td>
                                         <td>
-                                            {{-- MODIFIKASI INI: Mengarahkan ke route rekam_medis.index dengan Pet ID --}}
-                                            <a href="{{ route('rekam_medis.index', $pet->id) }}" class="btn btn-sm btn-outline-primary">
+                                            {{-- Ganti '#' dengan route yang benar untuk melihat Rekam Medis --}}
+                                            <a href="#" class="btn btn-sm btn-outline-primary">
                                                 <i class="fas fa-file-medical"></i> Riwayat
                                             </a>
                                         </td>

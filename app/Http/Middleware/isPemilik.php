@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-class isResepsionis
+class isPemilik
 {
     /**
      * Handle an incoming request.
@@ -16,21 +16,22 @@ class isResepsionis
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Jika user belum terautentikasi (belum login), redirect ke halaman login
+        // Pastikan pengguna sudah login
         if (!Auth::check()) {
             return redirect()->route('login');
         }
 
-        // Ambil role dari session yang disimpan saat login
+        // Ambil role dari session
        $userRole = session('user_role');
 
-       // Jika user terautentikasi dan role-nya adalah '8' (Resepsionis), izinkan akses
-       // Dalam contoh switch case di LoginController, role Resepsionis diwakili oleh '8'.
-       if ($userRole == 8) {
+       // Cek apakah role pengguna adalah '5' (Pemilik)
+       // Catatan: Anda harus memastikan ID ini sesuai dengan role Pemilik di database Anda.
+       if ($userRole == 5) {
+            // Jika role sesuai, izinkan akses
             return $next($request);
         } else {
-            // Jika role bukan '4', tolak akses dan kembalikan ke halaman sebelumnya dengan pesan error
-            return back()->with('error', 'Akses ditolak. Anda tidak memiliki izin untuk mengakses halaman ini.');
+            // Jika role tidak sesuai, tolak akses
+            return back()->with('error', 'Akses ditolak. Anda tidak memiliki izin Pemilik untuk mengakses halaman ini.');
         }
     }
 }

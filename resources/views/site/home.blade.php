@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -228,7 +227,26 @@
 <nav class="nav-atas">
   <a href="/">Home</a>
   <a href="/kontak">Kontak Kami</a>
-  <a href="/login">Login</a>
+    @guest
+        <a href="{{ route('login') }}">Login</a>
+    @else
+        @php
+            $role = session('user_role');
+            $dashboards = [
+                1 => route('admin.dashboard'),
+                2 => route('admin.Dokter.Dashboard_dokter'),
+                3 => route('admin.perawat.Dashboard_perawat'),
+                5 => route('admin.pemilik.Dashboard_pemilik'),
+                8 => route('admin.Resepsionis.Dashboard_Resepsionis'),
+            ];
+        @endphp
+        <a href="{{ $dashboards[$role] ?? route('home') }}">Dashboard</a>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit">Logout</button>
+        </form>
+    @endguest
+    </nav>
 </nav>
 
 <div class="banner">

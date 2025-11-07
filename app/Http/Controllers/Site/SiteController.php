@@ -47,9 +47,6 @@ class SiteController extends Controller
         }
     }
 
-    public function admin()
-    {
-        return view('site.admin');
-    }
+    
 }
 
