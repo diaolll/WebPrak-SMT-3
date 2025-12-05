@@ -2,32 +2,24 @@
 
 namespace App\Http\Controllers\perawat;
 
-use App\Models\RekamMedis; // <-- Perbaiki di baris paling atas controller Anda
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\perawat\RekamMedis; // Menggunakan nama class Model yang benar (RekamMedis)
-use Carbon\Carbon; // Digunakan untuk memfilter tanggal hari ini
+use Carbon\Carbon;
+use App\Models\RekamMedis;
+// use App\Models\Perawat; // Jika diperlukan data detail perawat
 
 class PerawatDashboardController extends Controller
 {
     public function index()
     {
-        // FUNGSI INI MENGAMBIL DATA ANTRIAN HARI INI
+        // Ambil data antrian hari ini (semua rekam medis yang dibuat hari ini)
         $rekamMedisAntrian = RekamMedis::with(['pet.pemilik.user', 'dokter'])
             // Filter hanya data hari ini (Antrian)
-            ->whereDate('created_at', Carbon::today()) 
-            ->orderBy('created_at', 'asc') 
+            ->whereDate('created_at', Carbon::today())
+            ->orderBy('created_at', 'asc')
             ->get();
-            
+        
         // Kirim data antrian ke dashboard
-        return view('admin.Perawat.Dashboard_perawat', compact('rekamMedisAntrian'));
+        return view('admin.perawat.dashboard_perawat', compact('rekamMedisAntrian'));
     }
-
-   // Fungsi untuk menampilkan Daftar Rekam Medis LENGKAP (Arsip)
-   public function rekamMedis() {
-        $RekamMedisList = RekamMedis::with(['pet.pemilik.user', 'dokter'])
-                                    ->orderBy('created_at', 'desc')
-                                    ->get();
-        return view('admin.perawat.index', compact('RekamMedisList')); 
-   }
 }

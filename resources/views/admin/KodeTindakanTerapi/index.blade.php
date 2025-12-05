@@ -21,7 +21,7 @@
                             {{-- BENTUK TABEL (GAYA BOOTSTRAP) DISAMAKAN --}}
                             <table class="table table-bordered table-striped">
                                 <thead>
-                                    <tr>
+                                <tr class="bg-light">
                                         <th style="width: 50px;">No</th> 
                                         <th style="width: 150px;">Kode</th> {{-- Beri lebar agar kolom Kode tidak terlalu lebar --}}
                                         <th>Deskripsi Tindakan Terapi</th>

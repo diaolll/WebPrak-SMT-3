@@ -11,4 +11,6 @@ class KategoriKlinis extends Model
     protected $fillable = [
         'nama_kategori_klinis',
     ];
+
+    public $timestamps = false;
 }

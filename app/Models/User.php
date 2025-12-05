@@ -8,6 +8,7 @@ use App\Models\Role;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Pemilik;
 use App\Models\RoleUser;
+use App\Models\Dokter;
 
 class User extends Authenticatable
 {
@@ -34,9 +35,18 @@ class User extends Authenticatable
 
     public function pemilik()
     {
-        return $this->hasOne(Pemilik::class, 'iduser', 'iduser');
+        return $this->hasOne(Pemilik::class, 'id_user', 'iduser');
     }
 
+    public function dokter()
+{
+    return $this->hasOne(Dokter::class, 'id_user', 'iduser');
+}
+
+    public function perawat()
+    {
+        return $this->hasOne(Perawat::class, 'id_user', 'iduser');
+    }
 
 }
 

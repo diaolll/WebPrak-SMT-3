@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;    
 use App\Models\Role;
 use App\Models\RoleUser;
+use Illuminate\Support\Facades\Log; // Import the Log facade
+use Illuminate\Support\Facades\Hash; // Import the Hash facade
 
 class LoginController extends Controller
 {
@@ -70,7 +72,7 @@ class LoginController extends Controller
     }
 
     // Cek password
-    if (!\Hash::check($request->password, $user->password)) {
+    if (!Hash::check($request->password, $user->password)) {
         return redirect()->back()
             ->withErrors(['password' => 'Password salah.'])
             ->withInput();
@@ -93,7 +95,7 @@ class LoginController extends Controller
     ]);
 
     $roles = $user->roles[0]->idrole ?? null;
-    \Log::info('User role: ' . $roles);
+    Log::info('User_role: ' . $roles);
 
     switch ($roles) {
         case 1:

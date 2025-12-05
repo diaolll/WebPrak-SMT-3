@@ -1,66 +1,77 @@
-{{-- File: resources/views/perawat/rekam_medis/index.blade.php --}}
+@extends('layouts.gxon.main')
 
-@extends('layouts.app') {{-- Sesuaikan dengan nama layout utama Anda --}}
+@section('title', 'Daftar Perawat')
+
+@section('content-header')
+<h1 class="app-page-title">Daftar Perawat</h1>
+<p class="text-muted">Kelola data profesional Perawat.</p>
+@endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">Daftar Rekam Medis</h5>
-                </div>
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card shadow-sm border-0">
+            
+            <div class="card-header border-bottom d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 card-title fw-bold">Tabel Data Perawat</h5>
+                <a href="{{ route('admin.perawat.create') }}" class="btn btn-primary waves-effect waves-light">
+                    <i class="fi fi-rr-plus me-1"></i> Tambah Perawat
+                </a>
+            </div>
 
-                <div class="card-body">
-                    {{-- Tombol untuk menambah data baru (Jika ada) --}}
-                    {{-- <a href="{{ route('perawat.rekam_medis.create') }}" class="btn btn-primary mb-3">
-                        Tambah Rekam Medis Baru
-                    </a> --}}
+            <div class="card-body">
+                
+                @if (session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
 
-                    @if ($RekamMedis->isEmpty())
-                        <div class="alert alert-warning" role="alert">
-                            Tidak ada data Rekam Medis yang ditemukan.
-                        </div>
-                    @else
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ID Rekam Medis</th>
-                                        <th>Tanggal Dibuat</th>
-                                        <th>ID Pet</th>
-                                        <th>Anamnesa</th>
-                                        <th>Temuan Klinis</th>
-                                        <th>Diagnosa</th>
-                                        <th>Dokter Pemeriksa</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($RekamMedis as $rm)
-                                    <tr>
-                                        <td>{{ $rm->idrekam_medis }}</td>
-                                        <td>{{ $rm->created_at ? $rm->created_at->format('d-m-Y H:i') : '-' }}</td>
-                                        <td>{{ $rm->idpet }}</td>
-                                        <td>{{ $rm->anamnesa }}</td>
-                                        <td>{{ $rm->temuan_klinis }}</td>
-                                        <td>{{ $rm->diagnosa }}</td>
-                                        <td>{{ $rm->dokter_pemeriksa }}</td>
-                                        <td>
-                                            {{-- Tambahkan tombol aksi di sini, seperti detail atau edit --}}
-                                            <a href="#" class="btn btn-sm btn-info">Detail</a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    @endif
-                     <div class="mt-3">
-                        <a href="{{ route('admin.Perawat.Dashboard_perawat') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Kembali ke Dashboard
-                        </a>
-                </div>
+                @if ($perawat->isEmpty())
+                    <div class="alert alert-warning" role="alert">
+                        Tidak ada data Perawat yang ditemukan.
+                    </div>
+                @else
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr class="bg-light">
+                                    <th style="width: 50px;">No</th> 
+                                    <th>Nama User</th>
+                                    <th>Pendidikan</th>
+                                    <th>No HP</th>
+                                    <th>Alamat</th>
+                                    <th style="width: 180px;" class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($perawat as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td> 
+                                    <td>{{ $item->user->nama ?? 'N/A' }}</td>
+                                    <td>{{ $item->pendidikan }}</td>
+                                    <td>{{ $item->no_hp }}</td>
+                                    <td>{{ $item->alamat }}</td>
+                                    
+                                    <td class="text-center">
+                                        <a href="{{ route('admin.perawat.edit', $item->id_perawat) }}" 
+                                            class="btn btn-sm btn-outline-warning waves-effect me-1" title="Edit">
+                                            Edit
+                                        </a>
+                                        <form action="{{ route('admin.perawat.destroy', $item->id_perawat) }}" 
+                                              method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger waves-effect" 
+                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data Perawat ini?')" title="Hapus">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

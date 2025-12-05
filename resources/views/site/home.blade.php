@@ -48,6 +48,33 @@
       color: #3f5e71;
       outline: none;
     }
+
+    /* ----------- PERBAIKAN: Gaya untuk Tombol Logout (nav-button) ----------- */
+    .nav-atas .nav-button {
+      /* RESET GAYA DEFAULT BUTTON */
+      background-color: transparent;
+      border: none;
+      /* MENGADOPSI GAYA DARI nav a */
+      text-decoration: none;
+      padding: 8px 15px;
+      font-weight: 600;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      color: white;
+      cursor: pointer;
+      font-family: 'Urbanist', sans-serif; 
+      font-size: 16px; 
+    }
+
+    /* Efek Hover untuk Tombol Logout */
+    .nav-atas .nav-button:hover,
+    .nav-atas .nav-button:focus {
+      background-color: #f7b267;
+      color: #3f5e71;
+      outline: none;
+    }
+    /* ----------- END PERBAIKAN ----------- */
+
     .nav-bawah {
       background-color: #f7b267;
     }
@@ -190,7 +217,7 @@
         padding: 12px 10px;
         flex-wrap: wrap;
       }
-      nav a {
+      nav a, .nav-atas .nav-button { /* Tambahkan .nav-button di media query */
         padding: 6px 12px;
         font-size: 14px;
       }
@@ -241,12 +268,11 @@
             ];
         @endphp
         <a href="{{ $dashboards[$role] ?? route('home') }}">Dashboard</a>
-        <form method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="{{ route('logout') }}" style="display: flex; align-items: center;">
             @csrf
-            <button type="submit">Logout</button>
+            <button type="submit" class="nav-button">Logout</button>
         </form>
     @endguest
-    </nav>
 </nav>
 
 <div class="banner">

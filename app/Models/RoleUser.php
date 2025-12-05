@@ -12,4 +12,10 @@ class RoleUser extends Model
         'idrole',
         'iduser',
     ];
+
+    public function user()
+{
+    return $this->belongsTo(User::class, 'iduser', 'iduser');
+}
+
 }

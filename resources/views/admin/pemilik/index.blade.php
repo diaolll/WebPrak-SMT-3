@@ -1,53 +1,89 @@
-{{-- resources/views/admin/pemilik/index.blade.php --}}
+@extends('layouts.gxon.main') 
 
-@extends('layouts.app') 
+@section('title', 'Daftar Pemilik')
+
+@section('content-header')
+<h1 class="app-page-title">Daftar Pemilik</h1>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Master Data</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Pemilik</li>
+    </ol>
+</nav>
+@endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10"> {{-- Ukuran kolom disesuaikan --}}
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">Daftar Pemilik 🧑‍💼</h5>
-                </div>
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card shadow-sm border-0">
+            
+            <div class="card-header border-bottom d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 card-title fw-bold">Tabel Data Pemilik</h5>
+                <a href="{{ route('admin.pemilik.create') }}" class="btn btn-primary waves-effect waves-light">
+                    <i class="fi fi-rr-plus me-1"></i> Tambah Pemilik
+                </a>
+            </div>
 
-                <div class="card-body">
-                    @if ($pemilik->isEmpty())
-                        <div class="alert alert-warning" role="alert">
-                            Tidak ada data Pemilik yang ditemukan.
-                        </div>
-                    @else
-                        <div class="table-responsive">
-                            {{-- BENTUK TABEL (GAYA BOOTSTRAP) --}}
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 50px;">No</th> 
-                                        <th>Nama Pemilik</th>
-                                        <th>No WA</th>
-                                        <th>Alamat</th>
-                                        {{-- KOLOM AKSI DIHILANGKAN --}}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($pemilik as $index => $item)
-                                    <tr>
-                                        <td>{{ $index + 1}}</td>
-                                        <td>{{ $item->user->nama }}</td> 
-                                        <td>{{ $item->no_wa }}</td>
-                                        <td>{{ $item->alamat }}</td>
-                                        {{-- SEL AKSI DIHILANGKAN --}}
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    @endif
-                     <div class="mt-3">
-                        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Kembali ke Dashboard
-                        </a>
-                </div>
+            <div class="card-body">
+                
+                @if (session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">{{ session('error') }}</div>
+                @endif
+
+                @if ($pemilik->isEmpty())
+                    <div class="alert alert-warning" role="alert">
+                        Tidak ada data Pemilik yang ditemukan.
+                    </div>
+                @else
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover"> 
+                            <thead>
+                                <tr class="bg-light">
+                                    <th style="width: 50px;">No</th> 
+                                    <th>Nama Pemilik</th>
+                                    <th>Email</th>
+                                    <th>Nomor WA</th>
+                                    <th>Alamat</th>
+                                    <th style="width: 180px;" class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($pemilik as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $item->user->nama ?? $item->user->name ?? 'N/A' }}</td>
+                                    <td>{{ $item->user->email ?? 'N/A' }}</td>
+                                    <td>{{ $item->no_wa }}</td>
+                                    <td>{{ $item->alamat }}</td>
+                                    
+                                    <td class="text-center">
+                                        <a href="{{ route('admin.pemilik.edit', $item->idpemilik) }}" 
+                                            class="btn btn-sm btn-outline-warning waves-effect me-1" title="Edit">
+                                            Edit
+                                        </a>
+                                        
+                                        <form action="{{ route('admin.pemilik.destroy', $item->idpemilik) }}" 
+                                              method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger waves-effect" 
+                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus pemilik ini?')" title="Hapus">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+                
             </div>
         </div>
     </div>
