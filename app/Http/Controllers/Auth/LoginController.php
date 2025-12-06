@@ -101,9 +101,9 @@ class LoginController extends Controller
         case 1:
             return redirect()->intended('/admin/dashboard')->with('success', 'Login berhasil!');
         case 2:
-            return redirect()->intended('/dokter')->with('success', 'Login berhasil!');
+            return redirect()->route('admin.dokter.pet.index')->with('success', 'Login berhasil!');
         case 3:
-            return redirect()->intended('/perawat/dashboard')->with('success', 'Login berhasil!');
+            return redirect()->intended('/pet')->with('success', 'Login berhasil!');
         case 5:
             return redirect()->intended('/pemilik/dashboard')->with('success', 'Login berhasil!');
         case 8:

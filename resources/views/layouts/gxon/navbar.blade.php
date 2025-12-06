@@ -5,6 +5,7 @@
             <span></span>
             <span></span>
         </button>
+
         <div class="app-header-start d-none d-md-flex">
             <form class="d-flex align-items-center h-100 w-lg-250px w-xxl-300px position-relative" action="#">
                 <button type="button" class="btn btn-sm border-0 position-absolute start-0 ms-3 p-0">
@@ -36,9 +37,9 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="vr my-3"></div> <!-- Vertical Separator -->
-            
+
             <div class="d-flex align-items-center gap-sm-2 gap-0 px-lg-4 px-sm-2 px-1">
                 <!-- Email & Notifikasi -->
                 <a href="#" class="btn btn-icon btn-action-gray rounded-circle waves-effect waves-light position-relative">
@@ -57,23 +58,23 @@
                     <i class="fi fi-rr-calendar"></i>
                 </a>
             </div>
-            
+
             <div class="vr my-3"></div> <!-- Vertical Separator -->
-            
+
             <!-- User Profile Dropdown (Tujuan Perbaikan) -->
             <div class="dropdown text-end ms-sm-3 ms-2 ms-lg-4">
                 <a href="#" class="d-flex align-items-center py-2" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
                     <div class="text-end me-2 d-none d-lg-inline-block">
                         @php
-                            $roleId = session('user_role');
-                            $roleName = match($roleId) {
-                                1 => 'Administrator',
-                                2 => 'Dokter',
-                                3 => 'Perawat',
-                                5 => 'Pemilik',
-                                8 => 'Resepsionis',
-                                default => 'Guest',
-                            };
+                        $roleId = session('user_role');
+                        $roleName = match($roleId) {
+                        1 => 'Administrator',
+                        2 => 'Dokter',
+                        3 => 'Perawat',
+                        5 => 'Pemilik',
+                        8 => 'Resepsionis',
+                        default => 'Guest',
+                        };
                         @endphp
                         <div class="fw-bold text-dark">{{ Auth::user()->nama ?? 'Pengguna' }}</div>
                         <small class="text-body d-block lh-sm">
@@ -94,16 +95,28 @@
                             <small class="text-body d-block lh-sm">{{ Auth::user()->email ?? 'user@example.com' }}</small>
                         </div>
                     </li>
-                    <li><div class="dropdown-divider my-1"></div></li>
-<li>
-    <a class="dropdown-item d-flex align-items-center gap-2" 
-       href="{{ route('dokter.profile') }}">
-        <i class="fi fi-rr-user scale-1x"></i> View Profile
-    </a>
-</li>
-                    
-                    <li><div class="dropdown-divider my-1"></div></li>
-                            
+                    <li>
+                        <div class="dropdown-divider my-1"></div>
+                    </li>
+
+                    <li>
+                        @php
+                        $profileRoute = match($roleId) {
+                        2 => route('admin.dokter.profile'),
+                        3 => route('admin.Perawat.profile'),
+                        default => '#'
+                        };
+                        @endphp
+                        <a class="dropdown-item d-flex align-items-center gap-2"
+                            href="{{ $profileRoute }}" @if($profileRoute==='#' ) onclick="return false;" style="cursor: not-allowed; opacity: 0.6;" @endif>
+                            <i class="fi fi-rr-user scale-1x"></i> View Profile
+                        </a>
+                    </li>
+
+                    <li>
+                        <div class="dropdown-divider my-1"></div>
+                    </li>
+
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

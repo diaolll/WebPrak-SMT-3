@@ -40,4 +40,14 @@ class DaftarPet extends Model
             'idjenis_hewan'         // PK di tabel ras_hewan
         );
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'iduser', 'iduser');
+    }
+    
+
+    
+
+    
 }

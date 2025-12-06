@@ -7,7 +7,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('admin.dokter.pet.index') }}">Dashboard</a>
+                    <a href="{{ route('admin.Perawat.pet.index') }}">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">Profil</li>
             </ol>
@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="ms-3">
-                            <h4 class="fw-bold mb-0">{{ $user->nama}}</h4>
+                            <h4 class="fw-bold mb-0">{{ $user->nama }}</h4>
                             <small>ID User: {{ $user->iduser }}</small>
 
                             <div class="d-flex flex-wrap gap-1 mt-2">
@@ -42,12 +42,11 @@
                                         {{ $role->nama_role }}
                                     </span>
                                 @empty
-                                    <span class="badge text-bg-danger">
-                                        Tidak Ada Role
-                                    </span>
+                                    <span class="badge text-bg-danger">Tidak Ada Role</span>
                                 @endforelse
                             </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -71,34 +70,31 @@
                 </div>
 
                 <div class="mb-3">
-                    <span class="mb-1">Bidang Dokter</span>
-                    <p class="text-dark fw-semibold mb-0">
-                        {{ optional($dokter)->bidang_dokter ?? '-' }}
-                    </p>
-                </div>
-
-                <div class="mb-3">
                     <span class="mb-1">Nomor HP</span>
-                    <p class="text-dark fw-semibold mb-0">
-                        {{ optional($dokter)->no_hp ?? '-' }}
-                    </p>
+                    <p class="text-dark fw-semibold mb-0">{{ optional($perawat)->no_hp ?? '-' }}</p>
                 </div>
 
                 <div class="mb-3">
                     <span class="mb-1">Alamat</span>
-                    <p class="text-dark fw-semibold mb-0">
-                        {{ optional($dokter)->alamat ?? '-' }}
-                    </p>
+                    <p class="text-dark fw-semibold mb-0">{{ optional($perawat)->alamat ?? '-' }}</p>
                 </div>
 
                 <div class="mb-3">
                     <span class="mb-1">Jenis Kelamin</span>
                     <p class="text-dark fw-semibold mb-0">
-                        {{ optional($dokter)->jenis_kelamin == 'L' 
-                            ? 'Laki-laki' 
-                            : (optional($dokter)->jenis_kelamin == 'P' ? 'Perempuan' : '-') 
-                        }}
+                        @if(optional($perawat)->jenis_kelamin === 'L')
+                            Laki-laki
+                        @elseif(optional($perawat)->jenis_kelamin === 'P')
+                            Perempuan
+                        @else
+                            -
+                        @endif
                     </p>
+                </div>
+
+                <div class="mb-3">
+                    <span class="mb-1">Pendidikan</span>
+                    <p class="text-dark fw-semibold mb-0">{{ optional($perawat)->pendidikan ?? '-' }}</p>
                 </div>
 
             </div>

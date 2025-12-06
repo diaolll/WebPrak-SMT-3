@@ -47,6 +47,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(Perawat::class, 'id_user', 'iduser');
     }
+    
 
 }
 

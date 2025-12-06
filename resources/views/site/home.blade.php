@@ -261,8 +261,8 @@
             $role = session('user_role');
             $dashboards = [
                 1 => route('admin.dashboard'),
-                2 => route('admin.Dokter.Dashboard_dokter'),
-                3 => route('admin.perawat.Dashboard_perawat'),
+                2 => route('admin.dokter.pet.index'),
+                3 => route('admin.Perawat.pet.index'),
                 5 => route('admin.pemilik.Dashboard_pemilik'),
                 8 => route('admin.Resepsionis.Dashboard_Resepsionis'),
             ];

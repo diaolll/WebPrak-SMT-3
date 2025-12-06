@@ -42,10 +42,13 @@ class DokterController extends Controller
             ->whereDate('created_at', Carbon::today())
             ->orderBy('created_at', 'asc')
             ->get();
+
+            
         
         // Tampilkan dashboard utama
-        return view('admin.dokter.dashboard_dokter', compact('pasienHariIni')); 
+        return view('admin.dokter.pet.index', compact('pasienHariIni')); 
     }
+    
 
 public function profile()
 {
@@ -58,7 +61,7 @@ public function profile()
 
     $dokter = $user->dokter; // BOLEH NULL, VIEW SUDAH AMAN
 
-    return view('admin.Dokter.profile', compact(
+    return view('admin.dokter.profile', compact(
         'user',
         'roles',
         'roleNames',
