@@ -65,9 +65,9 @@
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center">
 
-                                        {{-- DETAIL --}}
-                                        <a href="#"
-                                           class="btn btn-sm btn-outline-info waves-effect me-1 d-flex align-items-center">
+                                        {{-- DETAIL - PERBAIKAN DITERAPKAN DI SINI --}}
+                                        <a href="{{ route('admin.Perawat.detail_rekam_medis.index', $r->idrekam_medis) }}" 
+                                        class="btn btn-sm btn-outline-info waves-effect me-1 d-flex align-items-center">
                                             <i class="fi fi-rr-eye me-1"></i> Detail
                                         </a>
 

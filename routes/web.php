@@ -240,7 +240,7 @@ Route::middleware(['isResepsionis'])->group(function () {
 Route::prefix('admin/dokter')
     ->middleware(['auth', 'isDokter'])
     ->group(function () {
-        
+
         Route::get('/profil', [DokterController::class, 'profile'])
             ->name('admin.dokter.profile');
 
@@ -265,9 +265,31 @@ Route::prefix('admin/dokter')
 
         Route::delete('/rekam-medis/{id}', [RekamMedisController::class, 'destroy'])
             ->name('admin.dokter.rekam_medis.destroy');
+
+        // DETAIL REKAM MEDIS
+        Route::get('/rekam-medis/{idrekam_medis}/detail-rekam-medis', [App\Http\Controllers\dokter\DetailRekamMedisController::class, 'index'])
+            ->name('admin.dokter.detail_rekam_medis.index');
+
+        Route::get('/rekam-medis/{idrekam_medis}/detail-rekam-medis/create', [App\Http\Controllers\dokter\DetailRekamMedisController::class, 'create'])
+            ->name('admin.dokter.detail_rekam_medis.create');
+
+        Route::post('/rekam-medis/{idrekam_medis}/detail-rekam-medis', [App\Http\Controllers\dokter\DetailRekamMedisController::class, 'store'])
+            ->name('admin.dokter.detail_rekam_medis.store');
+
+        Route::get('/rekam-medis/{idrekam_medis}/detail-rekam-medis/{id}', [App\Http\Controllers\dokter\DetailRekamMedisController::class, 'show'])
+            ->name('admin.dokter.detail_rekam_medis.show');
+
+        Route::get('/rekam-medis/{idrekam_medis}/detail-rekam-medis/{id}/edit', [App\Http\Controllers\dokter\DetailRekamMedisController::class, 'edit'])
+            ->name('admin.dokter.detail_rekam_medis.edit');
+
+        Route::put('/rekam-medis/{idrekam_medis}/detail-rekam-medis/{id}', [App\Http\Controllers\dokter\DetailRekamMedisController::class, 'update'])
+            ->name('admin.dokter.detail_rekam_medis.update');
+
+        Route::delete('/rekam-medis/{idrekam_medis}/detail-rekam-medis/{id}', [App\Http\Controllers\dokter\DetailRekamMedisController::class, 'destroy'])
+            ->name('admin.dokter.detail_rekam_medis.destroy');
     });
 
-    
+
 Route::middleware('isPemilik')->group(function () {
     Route::get('/pemilik/dashboard', [App\Http\Controllers\pemilik\PemilikDashboardController::class, 'index'])->name('admin.pemilik.Dashboard_pemilik');
 });
@@ -294,6 +316,10 @@ Route::middleware('isPerawat')->group(function () {
 
     Route::delete('/rekam-medis/{id}', [\App\Http\Controllers\Perawat\RekamMedisController::class, 'destroy'])
         ->name('admin.Perawat.rekam_medis.destroy');
+
+    Route::get('/rekam-medis/{idrekam_medis}/detail-rekam-medis', 
+        [\App\Http\Controllers\perawat\DetailRekamMedisController::class, 'index'])
+        ->name('admin.Perawat.detail_rekam_medis.index');
 
     Route::get(
         '/profile',

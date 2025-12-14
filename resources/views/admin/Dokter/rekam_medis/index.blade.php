@@ -20,10 +20,11 @@
             <div class="card-header border-bottom d-flex justify-content-between align-items-center">
                 <h5 class="mb-0 card-title fw-bold">Data Rekam Medis</h5>
 
-                <a href="{{ route('admin.dokter.rekam_medis.create', $pet->idpet) }}" 
+                {{-- TOMBOL TAMBAH DIHILANGKAN SESUAI PERMINTAAN --}}
+                {{-- <a href="{{ route('admin.dokter.rekam_medis.create', $pet->idpet) }}" 
                    class="btn btn-primary waves-effect waves-light">
                     <i class="fi fi-rr-plus me-1"></i> Tambah Rekam Medis
-                </a>
+                </a> --}}
             </div>
 
             <div class="card-body">
@@ -49,7 +50,7 @@
                                 <th>Temuan Klinis</th>
                                 <th>Diagnosa</th>
                                 <th>Dokter Pemeriksa</th>
-                                <th class="text-center" style="width: 220px;">Aksi</th>
+                                <th class="text-center" style="width: 100px;">Aksi</th> {{-- Lebar dikurangi --}}
                             </tr>
                         </thead>
 
@@ -65,29 +66,14 @@
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center">
 
-                                        {{-- DETAIL --}}
-                                        <a href="#"
-                                           class="btn btn-sm btn-outline-info waves-effect me-1 d-flex align-items-center">
+                                        {{-- HANYA TOMBOL DETAIL YANG TERSISA --}}
+                                        <a href="{{ route('admin.dokter.detail_rekam_medis.index', $r->idrekam_medis) }}" 
+                                           class="btn btn-sm btn-outline-info waves-effect d-flex align-items-center">
                                             <i class="fi fi-rr-eye me-1"></i> Detail
                                         </a>
 
-                                        {{-- EDIT --}}
-                                        <a href="{{ route('admin.dokter.rekam_medis.edit', $r->idrekam_medis) }}" 
-                                           class="btn btn-sm btn-outline-warning waves-effect me-1 d-flex align-items-center">
-                                            <i class="fi fi-rr-edit me-1"></i> Edit
-                                        </a>
-
-                                        {{-- HAPUS --}}
-                                        <form method="POST" 
-                                              action="{{ route('admin.dokter.rekam_medis.destroy', $r->idrekam_medis) }}"
-                                              onsubmit="return confirm('Yakin ingin menghapus rekam medis ini?')">
-                                            @csrf 
-                                            @method('DELETE')
-
-                                            <button class="btn btn-sm btn-outline-danger waves-effect d-flex align-items-center">
-                                                <i class="fi fi-rr-trash me-1"></i> Hapus
-                                            </button>
-                                        </form>
+                                        {{-- EDIT DIHILANGKAN --}}
+                                        {{-- HAPUS DIHILANGKAN --}}
 
                                     </div>
                                 </td>

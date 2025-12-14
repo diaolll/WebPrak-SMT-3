@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\RoleUser;
-use App\Models\DaftarPet;   
+use App\Models\DaftarPet;
 
 class RekamMedis extends Model
 {
@@ -19,6 +19,7 @@ class RekamMedis extends Model
         'idpet',
         'dokter_pemeriksa',
         'created_at',
+        'idkode_tindakan_terapi'
     ];
 
     public function dokter()
@@ -37,5 +38,5 @@ class RekamMedis extends Model
         return $this->hasMany(DetailRekamMedis::class, 'idrekam_medis', 'idrekam_medis');
     }
 
-    
+
 }

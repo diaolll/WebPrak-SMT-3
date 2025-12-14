@@ -8,15 +8,11 @@ use App\Models\DaftarPet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\RoleUser;
-use App\Models\User;
-use App\Models\role; // huruf kecil sesuai file kamu
-use App\Models\Pemilik;
 
 
 class RekamMedisController extends Controller
 {
-    /** 
-     * TAMPILKAN SEMUA REKAM MEDIS PET
+    /** * TAMPILKAN SEMUA REKAM MEDIS PET
      */
     public function index($idpet)
     {
@@ -29,75 +25,71 @@ class RekamMedisController extends Controller
     }
 
     /**
-     * FORM TAMBAH REKAM MEDIS
+     * FORM TAMBAH REKAM MEDIS - DINONAKTIFKAN
      */
+    /*
     public function create($idpet)
     {
         $pet = DaftarPet::findOrFail($idpet);
         return view('admin.dokter.rekam_medis.create', compact('pet'));
     }
+    */
 
     /**
-     * SIMPAN DATA REKAM MEDIS
+     * SIMPAN DATA REKAM MEDIS - DINONAKTIFKAN
      */
+    /*
     public function store(Request $request, $idpet)
-{
-    $request->validate([
-        'anamnesa'        => 'required|string',
-        'temuan_klinis'   => 'required|string',
-        'diagnosa'        => 'required|string',
-    ]);
+    {
+        $request->validate([
+            'anamnesa'        => 'required|string',
+            'temuan_klinis'   => 'required|string',
+            'diagnosa'        => 'required|string',
+        ]);
 
-    // Ambil role_user langsung
-    $roleDokter = RoleUser::where('iduser', Auth::id())
-        ->where('idrole', 2) // idrole = 2 = dokter
-        ->first();
+        $roleDokter = RoleUser::where('iduser', Auth::id())
+            ->where('idrole', 2)
+            ->first();
 
-    if (!$roleDokter) {
-        return back()->with('error', 'Akun ini tidak memiliki role dokter.');
-    }
+        if (!$roleDokter) {
+            return back()->with('error', 'Akun ini tidak memiliki role dokter.');
+        }
 
-    $idrole_user = $roleDokter->idrole_user;
-
-            RekamMedis::create([
+        RekamMedis::create([
             'anamnesa'          => $request->anamnesa,
             'temuan_klinis'     => $request->temuan_klinis,
             'diagnosa'          => $request->diagnosa,
             'idpet'             => $idpet,
             'dokter_pemeriksa'  => $roleDokter->idrole_user,
-            'created_at'        => now(), // <-- biar gak null
+            'created_at'        => now(), 
         ]);
 
 
-    return redirect()->route('admin.dokter.rekam_medis.index', $idpet)
-        ->with('success', 'Rekam medis berhasil ditambahkan!');
-}
+        return redirect()->route('admin.dokter.rekam_medis.index', $idpet)
+            ->with('success', 'Rekam medis berhasil ditambahkan!');
+    }
+    */
 
 
     /**
-     * FORM EDIT REKAM MEDIS
+     * FORM EDIT REKAM MEDIS - DINONAKTIFKAN
      */
+    /*
     public function edit($id)
-{
-    // Ambil data rekam medis
-    $rekam = RekamMedis::with('pet')->findOrFail($id);
-
-    // Ambil daftar dokter dari table role_user dengan idrole = 2 (dokter)
-    $dokterList = RoleUser::where('idrole', 2)->with('user')->get();
-
-    // Kirim data ke view
-    return view('admin.Perawat.rekam_medis.edit', compact('rekam', 'dokterList'));
-}
+    {
+        $rekam = RekamMedis::with('pet')->findOrFail($id);
+        return view('admin.dokter.rekam_medis.edit', compact('rekam'));
+    }
+    */
 
 
     /**
-     * UPDATE DATA REKAM MEDIS
+     * UPDATE DATA REKAM MEDIS - DINONAKTIFKAN
      */
+    /*
     public function update(Request $request, $id)
     {
         $rekam = RekamMedis::findOrFail($id);
-        $dokterList = RoleUser::where('role_id', 2)->get(); // contoh jika role 2 = dokter
-
 
         $request->validate([
             'anamnesa'        => 'required|string',
@@ -112,13 +104,15 @@ class RekamMedisController extends Controller
             'created_at'      => now(),
         ]);
 
-        return redirect()->route('admin.dokter.rekam_medis.index', $rekam->idpet) ////// ini
+        return redirect()->route('admin.dokter.rekam_medis.index', $rekam->idpet)
         ->with('success', 'Rekam medis berhasil diperbarui!');
     }
+    */
 
     /**
-     * HAPUS
+     * HAPUS - DINONAKTIFKAN
      */
+    /*
     public function destroy($id)
     {
         $rekam = RekamMedis::findOrFail($id);
@@ -126,4 +120,5 @@ class RekamMedisController extends Controller
 
         return back()->with('success', 'Rekam medis berhasil dihapus!');
     }
+    */
 }

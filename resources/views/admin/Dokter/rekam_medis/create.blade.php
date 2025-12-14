@@ -1,4 +1,4 @@
-@extends('layouts.gxon.main') 
+@extends('layouts.gxon.main')
 
 @section('title', 'Tambah Rekam Medis')
 
@@ -18,9 +18,9 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-lg-8"> 
-        <div class="card shadow-sm border-0"> 
-            
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+
             <div class="card-header border-bottom">
                 <h5 class="mb-0 card-title fw-bold">Form Tambah Rekam Medis</h5>
             </div>
@@ -29,20 +29,20 @@
 
                 {{-- Pesan error --}}
                 @if (session('error'))
-                    <div class="alert alert-danger" role="alert">
-                        {{ session('error') }}
-                    </div>
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>
                 @endif
 
                 <form action="{{ route('admin.dokter.rekam_medis.store', $pet->idpet) }}" method="POST">
-                    @csrf 
-                    
+                    @csrf
+
                     {{-- ANAMNESA --}}
                     <div class="mb-3">
                         <label class="form-label">
                             Anamnesa <span class="text-danger">*</span>
                         </label>
-                        <textarea 
+                        <textarea
                             name="anamnesa"
                             class="form-control @error('anamnesa') is-invalid @enderror"
                             rows="3"
@@ -50,7 +50,7 @@
                             required>{{ old('anamnesa') }}</textarea>
 
                         @error('anamnesa')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -59,7 +59,7 @@
                         <label class="form-label">
                             Temuan Klinis <span class="text-danger">*</span>
                         </label>
-                        <textarea 
+                        <textarea
                             name="temuan_klinis"
                             class="form-control @error('temuan_klinis') is-invalid @enderror"
                             rows="3"
@@ -67,7 +67,7 @@
                             required>{{ old('temuan_klinis') }}</textarea>
 
                         @error('temuan_klinis')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -76,7 +76,7 @@
                         <label class="form-label">
                             Diagnosa <span class="text-danger">*</span>
                         </label>
-                        <textarea 
+                        <textarea
                             name="diagnosa"
                             class="form-control @error('diagnosa') is-invalid @enderror"
                             rows="3"
@@ -84,15 +84,17 @@
                             required>{{ old('diagnosa') }}</textarea>
 
                         @error('diagnosa')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    {{-- KODE TINDAKAN TERAPI - BLOK INI DIHAPUS TOTAL --}}
 
 
                     <div class="d-flex justify-content-between mt-4">
                         {{-- Tombol kembali --}}
-                        <a href="{{ route('admin.dokter.rekam_medis.index', $pet->idpet) }}" 
-                           class="btn btn-outline-secondary waves-effect">
+                        <a href="{{ route('admin.dokter.rekam_medis.index', $pet->idpet) }}"
+                            class="btn btn-outline-secondary waves-effect">
                             <i class="fi fi-rr-arrow-left me-1"></i> Kembali
                         </a>
 

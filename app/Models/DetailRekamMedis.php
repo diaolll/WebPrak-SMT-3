@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\RekamMedis;
+use App\Models\KodeTindakanTerapi;
 
 class DetailRekamMedis extends Model
 {
@@ -17,14 +19,18 @@ class DetailRekamMedis extends Model
         'detail'
     ];
 
-    public function rekam()
+    public function RekamMedis()
     {
         return $this->belongsTo(RekamMedis::class, 'idrekam_medis', 'idrekam_medis');
     }
 
-    // optional relasi ke kode tindakan
-    public function tindakan()
+    public function kodeTindakanTerapi()
     {
         return $this->belongsTo(KodeTindakanTerapi::class, 'idkode_tindakan_terapi', 'idkode_tindakan_terapi');
+    }
+
+    public function pet()
+    {
+        return $this->belongsTo(DaftarPet::class, 'idpet', 'idpet');
     }
 }

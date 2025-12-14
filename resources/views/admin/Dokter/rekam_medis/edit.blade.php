@@ -54,9 +54,40 @@
                         @error('diagnosa')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
 
-                    <button type="submit" class="btn btn-primary waves-effect waves-light w-100 mt-3">
-                        <i class="fi fi-rr-disk me-1"></i> Update Rekam Medis
-                    </button>
+                    {{-- KODE TINDAKAN TERAPI --}}
+                    {{-- Blok yang ditambahkan agar sinkron dengan form Create --}}
+                    {{-- KODE TINDAKAN TERAPI --}}
+<div class="mb-3">
+    <label class="form-label">
+        Kode Tindakan Terapi <span class="text-danger">*</span>
+    </label>
+    <select
+        name="idkode_tindakan_terapi"
+        class="form-control @error('idkode_tindakan_terapi') is-invalid @enderror"
+        required>
+        <option value="">Pilih Kode Tindakan Terapi</option>
+        @foreach($kodeTindakan as $kode)
+        {{-- ... --}}
+        @endforeach
+    </select>
+    @error('idkode_tindakan_terapi')
+    <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+                    
+                    <div class="d-flex justify-content-between mt-4">
+                        {{-- Tombol kembali --}}
+                        {{-- Menggunakan $rekam->idpet untuk navigasi kembali --}}
+                        <a href="{{ route('admin.dokter.rekam_medis.index', $rekam->idpet) }}"
+                            class="btn btn-outline-secondary waves-effect">
+                            <i class="fi fi-rr-arrow-left me-1"></i> Kembali
+                        </a>
+
+                        {{-- Tombol update --}}
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">
+                            <i class="fi fi-rr-disk me-1"></i> Update Rekam Medis
+                        </button>
+                    </div>
 
                 </form>
             </div>
